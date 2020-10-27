@@ -1,6 +1,5 @@
 package net.bozoinc.punishments.listener;
 
-import net.bozoinc.punishments.PunishmentPlugin;
 import net.bozoinc.punishments.cache.impl.PunishedUserCache;
 import net.bozoinc.punishments.entity.PunishedUser;
 import net.bozoinc.punishments.entity.Punishment;
@@ -31,13 +30,13 @@ public class AsyncPlayerChatListener implements Listener {
         event.setCancelled(true);
 
         player.sendMessage(new String[]{
-                "",
-                "§cVocê está temporariamente mutado do servidor.",
-                "",
-                "§c Autor: §f" + punishment.getAuthor(),
-                "§c Motivo: §f" + punishment.getReason(),
-                "§c Tempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
-                ""
+            "",
+            "§cVocê está temporariamente mutado do servidor.",
+            "",
+            "§c Autor: §f" + punishment.getAuthor(),
+            "§c Motivo: §f" + punishment.getReason(),
+            "§c Tempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
+            ""
         });
     }
 

@@ -22,20 +22,20 @@ public class TempMuteCommand {
 
         long timeLong = TimeHelper.convertToLong(time);
         Punishment punishment = Punishment.builder()
-                .active(true)
-                .author(commandSender.getName())
-                .punishmentTime(timeLong)
-                .time(System.currentTimeMillis() + timeLong)
-                .reason(reason == null ? "Não especificado" : String.join(" ", reason))
-                .type(PunishmentType.TEMPORARY_MUTE)
-                .build();
+            .active(true)
+            .author(commandSender.getName())
+            .punishmentTime(timeLong)
+            .time(System.currentTimeMillis() + timeLong)
+            .reason(reason == null ? "Não especificado" : String.join(" ", reason))
+            .type(PunishmentType.TEMPORARY_MUTE)
+            .build();
 
         PunishedUser punishedUser = punishedUserCache.get(target.getUniqueId());
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
-                    .uuid(target.getUniqueId())
-                    .punishments(Sets.newHashSet(punishment))
-                    .build();
+                .uuid(target.getUniqueId())
+                .punishments(Sets.newHashSet(punishment))
+                .build();
 
             punishedUserCache.put(target.getUniqueId(), newUser);
         } else {
@@ -48,15 +48,14 @@ public class TempMuteCommand {
         }
 
         target.sendMessage(new String[]{
-                "",
-                "§cVocê foi mutado temporariamente no servidor.",
-                "",
-                "§c Autor: §f" + punishment.getAuthor(),
-                "§c Motivo: §f" + punishment.getReason(),
-                "§c Tempo: §f" + TimeHelper.formatDifference(punishment.getPunishmentTime(), false),
-                ""
+            "",
+            "§cVocê foi mutado temporariamente no servidor.",
+            "",
+            "§c Autor: §f" + punishment.getAuthor(),
+            "§c Motivo: §f" + punishment.getReason(),
+            "§c Tempo: §f" + TimeHelper.formatDifference(punishment.getPunishmentTime(), false),
+            ""
         });
     }
-
 
 }

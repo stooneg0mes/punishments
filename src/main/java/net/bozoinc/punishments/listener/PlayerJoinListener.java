@@ -1,6 +1,5 @@
 package net.bozoinc.punishments.listener;
 
-import net.bozoinc.punishments.PunishmentPlugin;
 import net.bozoinc.punishments.cache.impl.PunishedUserCache;
 import net.bozoinc.punishments.entity.PunishedUser;
 import net.bozoinc.punishments.entity.Punishment;
@@ -35,34 +34,34 @@ public class PlayerJoinListener implements Listener {
                     }
 
                     message = new String[]{
-                            "",
-                            "§c§lPUNISHMENTS PLUGIN",
-                            "",
-                            "§c         Você está banido temporariamente desse servidor.",
-                            "",
-                            "§cTempo restante: " + TimeHelper.formatDifference(punishment.getTime(), true),
-                            "§cMotivo: " + punishment.getReason(),
-                            "§cAutor: " + punishment.getAuthor(),
-                            "",
-                            "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-                            "§fwww.peppacraft.com.br/revisao.",
-                            ""
+                        "",
+                        "§c§lPUNISHMENTS PLUGIN",
+                        "",
+                        "§c         Você está banido temporariamente desse servidor.",
+                        "",
+                        "§cTempo restante: " + TimeHelper.formatDifference(punishment.getTime(), true),
+                        "§cMotivo: " + punishment.getReason(),
+                        "§cAutor: " + punishment.getAuthor(),
+                        "",
+                        "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
+                        "§fwww.peppacraft.com.br/revisao.",
+                        ""
                     };
                     break;
                 }
                 case BAN: {
                     message = new String[]{
-                            "",
-                            "§c§lPUNISHMENTS PLUGIN",
-                            "",
-                            "§c         Você está banido permanente desse servidor.",
-                            "",
-                            "§cMotivo: " + punishment.getReason(),
-                            "§cAutor: " + punishment.getAuthor(),
-                            "",
-                            "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-                            "§fwww.peppacraft.com.br/revisao.",
-                            ""
+                        "",
+                        "§c§lPUNISHMENTS PLUGIN",
+                        "",
+                        "§c         Você está banido permanente desse servidor.",
+                        "",
+                        "§cMotivo: " + punishment.getReason(),
+                        "§cAutor: " + punishment.getAuthor(),
+                        "",
+                        "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
+                        "§fwww.peppacraft.com.br/revisao.",
+                        ""
                     };
                     break;
                 }

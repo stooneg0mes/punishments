@@ -20,19 +20,19 @@ public class BanCommand {
         CommandSender commandSender = context.getSender();
 
         Punishment punishment = Punishment.builder()
-                .active(true)
-                .author(commandSender.getName())
-                .punishmentTime(-1)
-                .reason(reason == null ? "Não especificado" : String.join(" ", reason))
-                .type(PunishmentType.BAN)
-                .build();
+            .active(true)
+            .author(commandSender.getName())
+            .punishmentTime(-1)
+            .reason(reason == null ? "Não especificado" : String.join(" ", reason))
+            .type(PunishmentType.BAN)
+            .build();
 
         PunishedUser punishedUser = punishedUserCache.get(target.getUniqueId());
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
-                    .uuid(target.getUniqueId())
-                    .punishments(Sets.newHashSet(punishment))
-                    .build();
+                .uuid(target.getUniqueId())
+                .punishments(Sets.newHashSet(punishment))
+                .build();
 
             punishedUserCache.put(target.getUniqueId(), newUser);
         } else {
@@ -49,17 +49,17 @@ public class BanCommand {
         }
 
         String[] kickMessage = new String[]{
-                "",
-                "§c§lPUNISHMENTS PLUGIN",
-                "",
-                "§c         Você está banido permanente desse servidor.",
-                "",
-                "§cMotivo: " + punishment.getReason(),
-                "§cAutor: " + punishment.getAuthor(),
-                "",
-                "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-                "§fwww.peppacraft.com.br/revisao.",
-                ""
+            "",
+            "§c§lPUNISHMENTS PLUGIN",
+            "",
+            "§c         Você está banido permanente desse servidor.",
+            "",
+            "§cMotivo: " + punishment.getReason(),
+            "§cAutor: " + punishment.getAuthor(),
+            "",
+            "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
+            "§fwww.peppacraft.com.br/revisao.",
+            ""
         };
 
         target.kickPlayer(String.join("\n", kickMessage));
