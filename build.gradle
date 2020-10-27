@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
-group 'me.v1ctu'
+group 'net.bozoinc.punishments'
 version '1.0-SNAPSHOT'
 
 repositories {
