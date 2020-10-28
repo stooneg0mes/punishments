@@ -11,7 +11,9 @@ import net.bozoinc.punishments.entity.type.PunishmentType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BanCommand {
+import static net.bozoinc.punishments.helper.TimeHelper.formatDifference;
+
+public class MuteCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
@@ -24,7 +26,7 @@ public class BanCommand {
             .author(commandSender.getName())
             .punishmentTime(-1)
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
-            .type(PunishmentType.BAN)
+            .type(PunishmentType.MUTE)
             .build();
 
         PunishedUser punishedUser = punishedUserCache.get(target.getUniqueId());
@@ -36,10 +38,10 @@ public class BanCommand {
 
             punishedUserCache.put(target.getUniqueId(), newUser);
         } else {
-            Punishment findPunishment = punishedUser.findActivePunishment(PunishmentType.BAN, PunishmentType.TEMPORARY_BAN);
+            Punishment findPunishment = punishedUser.findActivePunishment(PunishmentType.MUTE, PunishmentType.TEMPORARY_MUTE);
 
-            if (findPunishment.getType() == PunishmentType.BAN) {
-                commandSender.sendMessage("§cO jogador já está banido para sempre no momento.");
+            if (findPunishment.getType() == PunishmentType.MUTE) {
+                commandSender.sendMessage("§cO jogador já está mutado para sempre no momento.");
                 return;
             } else {
                 findPunishment.setActive(false);
@@ -48,21 +50,14 @@ public class BanCommand {
             punishedUser.addPunishment(punishment);
         }
 
-        String[] kickMessage = new String[]{
+        target.sendMessage(new String[]{
             "",
-            "§c§lPUNISHMENTS PLUGIN",
+            "§cVocê foi mutado permanentemente do servidor.",
             "",
-            "§c         Você está banido permanente desse servidor.",
-            "",
-            "§cMotivo: " + punishment.getReason(),
-            "§cAutor: " + punishment.getAuthor(),
-            "",
-            "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-            "§fwww.peppacraft.com.br/revisao.",
+            "§c Autor: §f" + punishment.getAuthor(),
+            "§c Motivo: §f" + punishment.getReason(),
             ""
-        };
-
-        target.kickPlayer(String.join("\n", kickMessage));
+        });
     }
 
 }

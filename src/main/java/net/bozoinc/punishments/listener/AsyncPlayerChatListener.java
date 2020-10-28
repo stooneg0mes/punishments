@@ -21,23 +21,49 @@ public class AsyncPlayerChatListener implements Listener {
         PunishedUser punishedUser = punishedUserCache.get(player.getUniqueId());
         if (punishedUser == null) return;
 
-        Punishment punishment = punishedUser.findActivePunishment(PunishmentType.TEMPORARY_MUTE);
+        Punishment punishment = punishedUser.findActivePunishment(PunishmentType.TEMPORARY_MUTE, PunishmentType.MUTE);
         if (punishment.getTime() <= System.currentTimeMillis()) {
             punishment.setActive(false);
             return;
         }
 
-        event.setCancelled(true);
+        String[] message;
 
-        player.sendMessage(new String[]{
-            "",
-            "§cVocê está temporariamente mutado do servidor.",
-            "",
-            "§c Autor: §f" + punishment.getAuthor(),
-            "§c Motivo: §f" + punishment.getReason(),
-            "§c Tempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
-            ""
-        });
+        switch (punishment.getType()) {
+            case TEMPORARY_MUTE: {
+                if (punishment.getTime() <= System.currentTimeMillis()) {
+                    punishment.setActive(false);
+                    return;
+                }
+
+                message = new String[]{
+                    "",
+                    "§cVocê está temporariamente mutado do servidor.",
+                    "",
+                    "§c Autor: §f" + punishment.getAuthor(),
+                    "§c Motivo: §f" + punishment.getReason(),
+                    "§c Tempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
+                    ""
+                };
+                break;
+            }
+            case MUTE: {
+                message = new String[]{
+                    "",
+                    "§cVocê está permanentemente mutado do servidor.",
+                    "",
+                    "§c Autor: §f" + punishment.getAuthor(),
+                    "§c Motivo: §f" + punishment.getReason(),
+                    ""
+                };
+                break;
+            }
+            default:
+                message = new String[]{""};
+        }
+
+        event.setCancelled(true);
+        player.sendMessage(message);
     }
 
 }

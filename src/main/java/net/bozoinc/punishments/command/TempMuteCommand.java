@@ -12,11 +12,13 @@ import net.bozoinc.punishments.helper.TimeHelper;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static net.bozoinc.punishments.helper.TimeHelper.formatDifference;
+
 public class TempMuteCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "tempmute", permission = "peppa.mute", usage = "tempmute <target> <time> <reason>")
+    @Command(name = "tempmute", permission = "punishments.commands.tempmute", usage = "tempmute <target> <time> <reason>")
     public void execute(Context<CommandSender> context, Player target, String time, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 
@@ -53,7 +55,7 @@ public class TempMuteCommand {
             "",
             "§c Autor: §f" + punishment.getAuthor(),
             "§c Motivo: §f" + punishment.getReason(),
-            "§c Tempo: §f" + TimeHelper.formatDifference(punishment.getPunishmentTime(), false),
+            "§c Tempo: §f" + formatDifference(punishment.getPunishmentTime(), false),
             ""
         });
     }

@@ -12,11 +12,13 @@ import net.bozoinc.punishments.helper.TimeHelper;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static net.bozoinc.punishments.helper.TimeHelper.formatDifference;
+
 public class TempBanCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "tempban", permission = "peppa.ban", usage = "tempban <target> <time> <reason>")
+    @Command(name = "tempban", permission = "punishments.commands.tempban", usage = "tempban <target> <time> <reason>")
     public void execute(Context<CommandSender> context, Player target, String time, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 
@@ -53,7 +55,7 @@ public class TempBanCommand {
             "",
             "§c         Você está banido temporariamente desse servidor.",
             "",
-            "§cTempo: " + TimeHelper.formatDifference(punishment.getPunishmentTime(), false),
+            "§cTempo: " + formatDifference(punishment.getPunishmentTime(), false),
             "§cMotivo: " + punishment.getReason(),
             "§cAutor: " + punishment.getAuthor(),
             "",

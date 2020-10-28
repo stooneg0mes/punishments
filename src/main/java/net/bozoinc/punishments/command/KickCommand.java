@@ -11,20 +11,20 @@ import net.bozoinc.punishments.entity.type.PunishmentType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BanCommand {
+public class KickCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "ban", permission = "punishments.commands.ban", usage = "ban <target> <reason>")
-    public void execute(Context<CommandSender> context, Player target, @Optional String[] reason) {
+    @Command(name = "kick", permission = "punishments.commands.kick", usage = "tempban <target> <time> <reason>")
+    public void execute(Context<CommandSender> context, Player target, String time, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 
         Punishment punishment = Punishment.builder()
-            .active(true)
+            .active(false)
             .author(commandSender.getName())
             .punishmentTime(-1)
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
-            .type(PunishmentType.BAN)
+            .type(PunishmentType.KICK)
             .build();
 
         PunishedUser punishedUser = punishedUserCache.get(target.getUniqueId());
@@ -35,30 +35,14 @@ public class BanCommand {
                 .build();
 
             punishedUserCache.put(target.getUniqueId(), newUser);
-        } else {
-            Punishment findPunishment = punishedUser.findActivePunishment(PunishmentType.BAN, PunishmentType.TEMPORARY_BAN);
+        } else punishedUser.addPunishment(punishment);
 
-            if (findPunishment.getType() == PunishmentType.BAN) {
-                commandSender.sendMessage("§cO jogador já está banido para sempre no momento.");
-                return;
-            } else {
-                findPunishment.setActive(false);
-            }
-
-            punishedUser.addPunishment(punishment);
-        }
 
         String[] kickMessage = new String[]{
             "",
             "§c§lPUNISHMENTS PLUGIN",
             "",
-            "§c         Você está banido permanente desse servidor.",
-            "",
-            "§cMotivo: " + punishment.getReason(),
-            "§cAutor: " + punishment.getAuthor(),
-            "",
-            "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-            "§fwww.peppacraft.com.br/revisao.",
+            "§cVocê foi kickado do servidor, você poderá entrar novamente se haver vagas.",
             ""
         };
 

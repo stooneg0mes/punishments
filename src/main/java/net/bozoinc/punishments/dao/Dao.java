@@ -1,5 +1,8 @@
 package net.bozoinc.punishments.dao;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+
 import java.util.Collection;
 
 public interface Dao<K, V> {
@@ -10,6 +13,6 @@ public interface Dao<K, V> {
 
     V find(K key);
 
-    Collection<V> find();
+    FindIterable<V> find();
 
 }

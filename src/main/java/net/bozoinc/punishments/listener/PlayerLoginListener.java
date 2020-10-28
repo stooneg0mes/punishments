@@ -12,7 +12,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import static org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER;
 
 
-public class PlayerJoinListener implements Listener {
+public class PlayerLoginListener implements Listener {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
@@ -23,7 +23,7 @@ public class PlayerJoinListener implements Listener {
 
         Punishment punishment = punishedUser.findActivePunishment(PunishmentType.BAN, PunishmentType.TEMPORARY_BAN);
         if (punishment != null) {
-            String[] message;
+            String[] kickMessage;
 
             switch (punishment.getType()) {
                 case TEMPORARY_BAN: {
@@ -33,7 +33,7 @@ public class PlayerJoinListener implements Listener {
                         return;
                     }
 
-                    message = new String[]{
+                    kickMessage = new String[]{
                         "",
                         "§c§lPUNISHMENTS PLUGIN",
                         "",
@@ -50,7 +50,7 @@ public class PlayerJoinListener implements Listener {
                     break;
                 }
                 case BAN: {
-                    message = new String[]{
+                    kickMessage = new String[]{
                         "",
                         "§c§lPUNISHMENTS PLUGIN",
                         "",
@@ -66,10 +66,10 @@ public class PlayerJoinListener implements Listener {
                     break;
                 }
                 default:
-                    message = new String[]{""};
+                    kickMessage = new String[]{""};
             }
 
-            event.disallow(KICK_OTHER, String.join("\n", message));
+            event.disallow(KICK_OTHER, String.join("\n", kickMessage));
         }
     }
 }
