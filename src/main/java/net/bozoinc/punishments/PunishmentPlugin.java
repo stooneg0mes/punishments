@@ -10,6 +10,7 @@ import net.bozoinc.punishments.listener.AsyncPlayerChatListener;
 import net.bozoinc.punishments.listener.PlayerLoginListener;
 import net.bozoinc.punishments.storage.MongoDB;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -22,6 +23,7 @@ public class PunishmentPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         instance = this;
 
         if (setupStorage()) {
@@ -70,7 +72,15 @@ public class PunishmentPlugin extends JavaPlugin {
     }
 
     private boolean setupStorage() {
-        mongoDB = new MongoDB("localhost", "test", 27017);
+        ConfigurationSection storageSection = getConfig().getConfigurationSection("storage");
+
+        mongoDB = MongoDB.builder()
+            .srv(storageSection.getBoolean("srv"))
+            .user(storageSection.getString("user"))
+            .database(storageSection.getString("database"))
+            .host(storageSection.getString("host"))
+            .password(storageSection.getString("password"))
+            .build();
 
         return mongoDB.startConnection();
     }

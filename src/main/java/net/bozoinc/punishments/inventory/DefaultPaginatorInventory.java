@@ -1,6 +1,5 @@
 package net.bozoinc.punishments.inventory;
 
-import me.saiintbrisson.minecraft.utils.ItemBuilder;
 import net.bozoinc.punishments.inventory.item.ClickableItem;
 import net.bozoinc.punishments.inventory.item.itemstack.ItemStackBuilder;
 import org.bukkit.Material;
@@ -24,7 +23,7 @@ public class DefaultPaginatorInventory extends CustomInventory {
             .build();
 
         ClickableItem previousPage = ClickableItem.builder()
-            .itemStack(new ItemBuilder(Material.ARROW).name("§aPágina anterior").build())
+            .itemStack(new ItemStackBuilder(Material.ARROW).name("§aPágina anterior").build())
             .eventConsumer((inventory, event) -> paginatorInventory.goToPreviousPage(player))
             .build();
 

@@ -1,0 +1,6 @@
+storage: # mongodb credentials
+  srv: true
+  host: "localhost"
+  user: ""
+  password: ""
+  database: "admin"

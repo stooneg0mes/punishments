@@ -6,61 +6,57 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import lombok.Builder;
+import lombok.Getter;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Builder
 public class MongoDB {
 
+    private final boolean srv;
+    private final String user, host, password, database;
+
+    @Getter
+    private final CodecRegistry pojoCodecRegistry;
+
+    @Getter
+    private MongoDatabase mongoDatabase;
+
+    @Getter
     private MongoClient mongoClient;
-    private CodecRegistry pojoCodecRegistry;
-
-    private final String host, database;
-    private final int port;
-
-    public MongoDB(String host, String database, int port) {
-        this.host = host;
-        this.database = database;
-        this.port = port;
-    }
 
     public boolean startConnection() {
         Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
+        String uri = "mongodb" + (srv ? "+srv" : "") + "://" + user + ":" + password + "@" + host + "/" + database + "?retryWrites=true&w=majority";
 
-        try {
-            pojoCodecRegistry = CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+        CodecRegistry pojoCodecRegistry = CodecRegistries.fromRegistries(
+            MongoClientSettings.getDefaultCodecRegistry(),
+            CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())
+        );
 
-            mongoClient = MongoClients.create(MongoClientSettings.builder()
-                .applyToClusterSettings(builder -> builder.hosts(Collections.singletonList(new ServerAddress(host, port))))
-                .codecRegistry(pojoCodecRegistry)
-                .build());
+        mongoClient = MongoClients.create(uri);
+        mongoDatabase = mongoClient.getDatabase(database).withCodecRegistry(pojoCodecRegistry);
 
-            if (!existsCollection("punishedUsers")) getDatabase().createCollection("punishedUsers");
+        if (!existsCollection("punishedUsers")) mongoDatabase.createCollection("punishedUsers");
 
-            return true;
-        } catch (Exception ignored) {
-            return false;
-        }
+        return mongoClient.startSession().hasActiveTransaction();
     }
 
-    public boolean existsCollection(String collection) {
-        for (String string : getDatabase().listCollectionNames()) {
-            if (string.equalsIgnoreCase(collection)) return true;
+    public <T> MongoCollection<T> getCollection(String name, Class<T> clazz) {
+        return mongoDatabase.getCollection(name, clazz).withCodecRegistry(pojoCodecRegistry);
+    }
+
+    public boolean existsCollection(String name) {
+        for (String string : mongoDatabase.listCollectionNames()) {
+            if (string.equalsIgnoreCase(name)) return true;
         }
 
         return false;
-    }
-
-    public MongoDatabase getDatabase() {
-        return mongoClient.getDatabase(database).withCodecRegistry(pojoCodecRegistry);
-    }
-
-    public <T> MongoCollection<T> getCollection(String collection, Class<T> clazz) {
-        return getDatabase().getCollection(collection, clazz).withCodecRegistry(pojoCodecRegistry);
     }
 
     public boolean isConnected() {
