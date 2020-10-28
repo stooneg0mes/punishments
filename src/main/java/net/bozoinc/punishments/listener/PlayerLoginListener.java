@@ -28,7 +28,6 @@ public class PlayerLoginListener implements Listener {
             switch (punishment.getType()) {
                 case TEMPORARY_BAN: {
                     if (punishment.getTime() <= System.currentTimeMillis()) {
-                        System.out.println("a");
                         punishment.setActive(false);
                         return;
                     }
