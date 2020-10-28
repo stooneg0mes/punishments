@@ -17,7 +17,7 @@ public class MuteCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "ban", permission = "punishments.commands.ban", usage = "ban <target> <reason>")
+    @Command(name = "ban", permission = "punishments.commands.ban", usage = "mute <target> <reason>")
     public void execute(Context<CommandSender> context, Player target, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 

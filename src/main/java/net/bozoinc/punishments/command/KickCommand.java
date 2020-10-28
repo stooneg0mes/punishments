@@ -15,7 +15,7 @@ public class KickCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "kick", permission = "punishments.commands.kick", usage = "tempban <target> <time> <reason>")
+    @Command(name = "kick", permission = "punishments.commands.kick", usage = "kick <target> <reason>")
     public void execute(Context<CommandSender> context, Player target, String time, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 
@@ -42,8 +42,11 @@ public class KickCommand {
             "",
             "§c§lPUNISHMENTS PLUGIN",
             "",
-            "§cVocê foi kickado do servidor, você poderá entrar novamente se haver vagas.",
-            ""
+            "§c         Você foi kickado desse servidor.",
+            "",
+            "§cMotivo: " + punishment.getReason(),
+            "§cAutor: " + punishment.getAuthor(),
+            "",
         };
 
         target.kickPlayer(String.join("\n", kickMessage));
