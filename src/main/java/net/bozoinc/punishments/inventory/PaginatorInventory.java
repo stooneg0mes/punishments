@@ -25,7 +25,7 @@ public class PaginatorInventory {
         int i = 0;
 
         /*
-        In case the items provided is empty
+        In case the provided items is empty
          */
 
         if (items.isEmpty()) {
