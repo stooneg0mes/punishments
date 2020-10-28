@@ -33,8 +33,12 @@ public abstract class CustomInventory implements InventoryHolder {
         items.put(slot, clickableItem);
     }
 
-    public ClickableItem getItem(int slot) {
-        return items.get(slot);
+    public void updateItem(int slot) {
+        ClickableItem clickableItem = items.get(slot);
+        if (clickableItem == null) return;
+
+        inventory.setItem(slot, clickableItem.getItemStack());
+        items.put(slot, clickableItem);
     }
 
     /*

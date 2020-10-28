@@ -38,11 +38,11 @@ public class AsyncPlayerChatListener implements Listener {
 
                 message = new String[]{
                     "",
-                    "§cVocê está temporariamente mutado do servidor.",
+                    "§cVocê está temporariamente silenciado do servidor.",
                     "",
-                    "§c Autor: §f" + punishment.getAuthor(),
-                    "§c Motivo: §f" + punishment.getReason(),
-                    "§c Tempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
+                    "§cAutor: §f" + punishment.getAuthor(),
+                    "§cMotivo: §f" + punishment.getReason(),
+                    "§cTempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
                     ""
                 };
                 break;
@@ -50,10 +50,10 @@ public class AsyncPlayerChatListener implements Listener {
             case MUTE: {
                 message = new String[]{
                     "",
-                    "§cVocê está permanentemente mutado do servidor.",
+                    "§cVocê está permanentemente silenciado do servidor.",
                     "",
-                    "§c Autor: §f" + punishment.getAuthor(),
-                    "§c Motivo: §f" + punishment.getReason(),
+                    "§cAutor: §f" + punishment.getAuthor(),
+                    "§cMotivo: §f" + punishment.getReason(),
                     ""
                 };
                 break;

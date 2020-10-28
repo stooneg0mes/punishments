@@ -24,7 +24,6 @@ public class MuteCommand {
         Punishment punishment = Punishment.builder()
             .active(true)
             .author(commandSender.getName())
-            .punishmentTime(-1)
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
             .type(PunishmentType.MUTE)
             .build();
@@ -33,6 +32,7 @@ public class MuteCommand {
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
                 .uuid(target.getUniqueId())
+                .name(target.getName())
                 .punishments(Sets.newHashSet(punishment))
                 .build();
 
@@ -52,7 +52,7 @@ public class MuteCommand {
 
         target.sendMessage(new String[]{
             "",
-            "§cVocê foi mutado permanentemente do servidor.",
+            "§cVocê foi silenciado permanentemente do servidor.",
             "",
             "§c Autor: §f" + punishment.getAuthor(),
             "§c Motivo: §f" + punishment.getReason(),

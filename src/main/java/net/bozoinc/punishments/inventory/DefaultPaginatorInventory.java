@@ -20,12 +20,12 @@ public class DefaultPaginatorInventory extends CustomInventory {
     public void init(Player player) {
         ClickableItem nextPage = ClickableItem.builder()
             .itemStack(new ItemStackBuilder(Material.ARROW).name("§aPróxima página").build())
-            .eventConsumer(event -> paginatorInventory.goToNextPage(player))
+            .eventConsumer((inventory, event) -> paginatorInventory.goToNextPage(player))
             .build();
 
         ClickableItem previousPage = ClickableItem.builder()
             .itemStack(new ItemBuilder(Material.ARROW).name("§aPágina anterior").build())
-            .eventConsumer(event -> paginatorInventory.goToPreviousPage(player))
+            .eventConsumer((inventory, event) -> paginatorInventory.goToPreviousPage(player))
             .build();
 
         if ((paginatorInventory.getCurrentPage() + 1) < paginatorInventory.getPages().size()) setItem(26, nextPage);

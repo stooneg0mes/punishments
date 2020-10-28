@@ -14,6 +14,7 @@ import java.util.UUID;
 public class PunishedUser {
 
     private final UUID uuid;
+    private final String name;
     private final Set<Punishment> punishments;
 
     public Set<Punishment> findActivePunishments() {

@@ -26,8 +26,9 @@ public class TempMuteCommand {
         Punishment punishment = Punishment.builder()
             .active(true)
             .author(commandSender.getName())
-            .punishmentTime(timeLong)
-            .time(System.currentTimeMillis() + timeLong)
+            .punishmentDuration(timeLong)
+            .timeLeft(System.currentTimeMillis() + timeLong)
+            .time(System.currentTimeMillis())
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
             .type(PunishmentType.TEMPORARY_MUTE)
             .build();
@@ -36,6 +37,7 @@ public class TempMuteCommand {
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
                 .uuid(target.getUniqueId())
+                .name(target.getName())
                 .punishments(Sets.newHashSet(punishment))
                 .build();
 
@@ -51,11 +53,11 @@ public class TempMuteCommand {
 
         target.sendMessage(new String[]{
             "",
-            "§cVocê foi mutado temporariamente no servidor.",
+            "§cVocê foi silenciado temporariamente no servidor.",
             "",
             "§c Autor: §f" + punishment.getAuthor(),
             "§c Motivo: §f" + punishment.getReason(),
-            "§c Tempo: §f" + formatDifference(punishment.getPunishmentTime(), false),
+            "§c Tempo: §f" + formatDifference(punishment.getPunishmentDuration(), false),
             ""
         });
     }

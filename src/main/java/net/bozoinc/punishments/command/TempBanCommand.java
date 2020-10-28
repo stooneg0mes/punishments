@@ -26,8 +26,9 @@ public class TempBanCommand {
         Punishment punishment = Punishment.builder()
             .active(true)
             .author(commandSender.getName())
-            .punishmentTime(timeLong)
-            .time(System.currentTimeMillis() + timeLong)
+            .punishmentDuration(timeLong)
+            .timeLeft(System.currentTimeMillis() + timeLong)
+            .time(System.currentTimeMillis())
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
             .type(PunishmentType.TEMPORARY_BAN)
             .build();
@@ -36,6 +37,7 @@ public class TempBanCommand {
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
                 .uuid(target.getUniqueId())
+                .name(target.getName())
                 .punishments(Sets.newHashSet(punishment))
                 .build();
 
@@ -55,7 +57,7 @@ public class TempBanCommand {
             "",
             "§c         Você está banido temporariamente desse servidor.",
             "",
-            "§cTempo: " + formatDifference(punishment.getPunishmentTime(), false),
+            "§cTempo: " + formatDifference(punishment.getPunishmentDuration(), false),
             "§cMotivo: " + punishment.getReason(),
             "§cAutor: " + punishment.getAuthor(),
             "",

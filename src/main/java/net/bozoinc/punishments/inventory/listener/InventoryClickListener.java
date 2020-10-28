@@ -18,10 +18,10 @@ public class InventoryClickListener implements Listener {
 
             if (customInventory.isCancellable()) event.setCancelled(true);
 
-            ClickableItem clickableItem = customInventory.getItem(event.getSlot());
+            ClickableItem clickableItem = customInventory.getItems().get(event.getSlot());
             if (clickableItem == null) return;
 
-            clickableItem.getEventConsumer().accept(event);
+            clickableItem.getEventConsumer().accept(customInventory, event);
         }
     }
 

@@ -7,10 +7,12 @@ import lombok.Getter;
 @Getter
 public enum PunishmentType {
 
-    MUTE,
-    TEMPORARY_MUTE,
-    BAN,
-    TEMPORARY_BAN,
-    KICK;
+    MUTE("Silenciamento"),
+    TEMPORARY_MUTE("Silenciamento temporário"),
+    BAN("Ban permanente"),
+    TEMPORARY_BAN("Ban temporário"),
+    KICK("Kick");
+
+    private String name;
 
 }

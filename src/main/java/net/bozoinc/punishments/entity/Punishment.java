@@ -12,7 +12,7 @@ public class Punishment {
 
     private final PunishmentType type;
     private final String reason, author;
-    private final long time, punishmentTime;
+    private final long time, timeLeft, punishmentDuration;
 
     private final String id = RandomStringUtils.random(7, true, true).toUpperCase();
 

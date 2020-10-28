@@ -21,7 +21,7 @@ public class PaginatorInventory {
 
         CustomInventory inventory = new DefaultPaginatorInventory(title, this);
 
-        Integer[] ALLOWED_SLOTS = new Integer[] { 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43 };
+        Integer[] ALLOWED_SLOTS = new Integer[]{10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34};
         int i = 0;
 
         /*
@@ -42,7 +42,7 @@ public class PaginatorInventory {
          */
 
         for (ClickableItem clickableItem : items) {
-            if (ALLOWED_SLOTS[i] == 43) {
+            if (ALLOWED_SLOTS[i] == 34) {
                 inventory.setItem(ALLOWED_SLOTS[i], clickableItem);
 
                 i = 0;

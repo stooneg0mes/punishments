@@ -22,7 +22,6 @@ public class BanCommand {
         Punishment punishment = Punishment.builder()
             .active(true)
             .author(commandSender.getName())
-            .punishmentTime(-1)
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
             .type(PunishmentType.BAN)
             .build();
@@ -31,6 +30,7 @@ public class BanCommand {
         if (punishedUser == null) {
             PunishedUser newUser = PunishedUser.builder()
                 .uuid(target.getUniqueId())
+                .name(target.getName())
                 .punishments(Sets.newHashSet(punishment))
                 .build();
 

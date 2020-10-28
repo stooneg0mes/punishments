@@ -4,9 +4,7 @@ import lombok.Getter;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.command.message.MessageType;
 import net.bozoinc.punishments.cache.impl.PunishedUserCache;
-import net.bozoinc.punishments.command.BanCommand;
-import net.bozoinc.punishments.command.TempBanCommand;
-import net.bozoinc.punishments.command.TempMuteCommand;
+import net.bozoinc.punishments.command.*;
 import net.bozoinc.punishments.inventory.listener.InventoryClickListener;
 import net.bozoinc.punishments.listener.AsyncPlayerChatListener;
 import net.bozoinc.punishments.listener.PlayerLoginListener;
@@ -42,7 +40,10 @@ public class PunishmentPlugin extends JavaPlugin {
             bukkitFrame.registerCommands(
                 new BanCommand(),
                 new TempMuteCommand(),
-                new TempBanCommand()
+                new TempBanCommand(),
+                new MuteCommand(),
+                new KickCommand(),
+                new HistoryCommand()
             );
 
             bukkitFrame.getMessageHolder().setMessage(MessageType.INCORRECT_TARGET, "§cEsse comando não foi feito para você.");
