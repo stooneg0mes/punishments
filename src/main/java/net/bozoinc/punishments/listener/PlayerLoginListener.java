@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
+import static net.bozoinc.punishments.helper.TimeHelper.formatDifference;
 import static org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result.KICK_OTHER;
 
 
@@ -22,53 +23,53 @@ public class PlayerLoginListener implements Listener {
         if (punishedUser == null) return;
 
         Punishment punishment = punishedUser.findActivePunishment(PunishmentType.BAN, PunishmentType.TEMPORARY_BAN);
-        if (punishment != null) {
-            String[] kickMessage;
+        if (punishment == null) return;
 
-            switch (punishment.getType()) {
-                case TEMPORARY_BAN: {
-                    if (punishment.getTime() <= System.currentTimeMillis()) {
-                        punishment.setActive(false);
-                        return;
-                    }
+        String[] kickMessage;
+        switch (punishment.getType()) {
+            case TEMPORARY_BAN: {
+                if (punishment.getTimeLeft() <= System.currentTimeMillis()) {
+                    punishment.setTimeLeft(-1);
+                    punishment.setActive(false);
+                    return;
+                }
 
-                    kickMessage = new String[]{
-                        "",
-                        "§c§lPUNISHMENTS PLUGIN",
-                        "",
-                        "§c         Você está banido temporariamente desse servidor.",
-                        "",
-                        "§cTempo restante: " + TimeHelper.formatDifference(punishment.getTime(), true),
-                        "§cMotivo: " + punishment.getReason(),
-                        "§cAutor: " + punishment.getAuthor(),
-                        "",
-                        "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-                        "§fwww.peppacraft.com.br/revisao.",
-                        ""
-                    };
-                    break;
-                }
-                case BAN: {
-                    kickMessage = new String[]{
-                        "",
-                        "§c§lPUNISHMENTS PLUGIN",
-                        "",
-                        "§c         Você está banido permanente desse servidor.",
-                        "",
-                        "§cMotivo: " + punishment.getReason(),
-                        "§cAutor: " + punishment.getAuthor(),
-                        "",
-                        "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
-                        "§fwww.peppacraft.com.br/revisao.",
-                        ""
-                    };
-                    break;
-                }
-                default:
-                    kickMessage = new String[]{""};
+                kickMessage = new String[]{
+                    "",
+                    "§c§lPUNISHMENTS PLUGIN",
+                    "",
+                    "§c         Você está banido temporariamente desse servidor.",
+                    "",
+                    "§cTempo restante: " + formatDifference(punishment.getTimeLeft(), true),
+                    "§cMotivo: " + punishment.getReason(),
+                    "§cAutor: " + punishment.getAuthor(),
+                    "",
+                    "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
+                    "§fwww.peppacraft.com.br/revisao.",
+                    ""
+                };
+                break;
             }
-
-            event.disallow(KICK_OTHER, String.join("\n", kickMessage));
+            case BAN: {
+                kickMessage = new String[]{
+                    "",
+                    "§c§lPUNISHMENTS PLUGIN",
+                    "",
+                    "§c         Você está banido permanente desse servidor.",
+                    "",
+                    "§cMotivo: " + punishment.getReason(),
+                    "§cAutor: " + punishment.getAuthor(),
+                    "",
+                    "§cAchou a punição injusta? Crie uma revisão com o ID §f#" + punishment.getId() + "§c em:",
+                    "§fwww.peppacraft.com.br/revisao.",
+                    ""
+                };
+                break;
+            }
+            default:
+                kickMessage = new String[]{""};
         }
+
+        event.disallow(KICK_OTHER, String.join("\n", kickMessage));
     }
 }

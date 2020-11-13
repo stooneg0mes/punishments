@@ -20,6 +20,8 @@ public class PunishedUserCache extends Cache<UUID, PunishedUser> {
     @Override
     public void load() {
         for (PunishedUser punishedUser : punishedUserDao.find()) {
+            System.out.println(punishedUser.getUuid());
+
             put(punishedUser.getUuid(), punishedUser);
         }
     }

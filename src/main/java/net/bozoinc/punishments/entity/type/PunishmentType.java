@@ -13,6 +13,6 @@ public enum PunishmentType {
     TEMPORARY_BAN("Ban temporário"),
     KICK("Kick");
 
-    private String name;
+    private final String name;
 
 }

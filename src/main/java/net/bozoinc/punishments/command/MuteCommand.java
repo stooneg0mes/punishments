@@ -1,6 +1,6 @@
 package net.bozoinc.punishments.command;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.annotation.Optional;
 import me.saiintbrisson.minecraft.command.command.Context;
@@ -8,6 +8,7 @@ import net.bozoinc.punishments.cache.impl.PunishedUserCache;
 import net.bozoinc.punishments.entity.PunishedUser;
 import net.bozoinc.punishments.entity.Punishment;
 import net.bozoinc.punishments.entity.type.PunishmentType;
+import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -17,13 +18,17 @@ public class MuteCommand {
 
     private final PunishedUserCache punishedUserCache = PunishedUserCache.getInstance();
 
-    @Command(name = "ban", permission = "punishments.commands.ban", usage = "mute <target> <reason>")
+    @Command(name = "mute", permission = "punishments.commands.mute", usage = "mute <target> <reason>")
     public void execute(Context<CommandSender> context, Player target, @Optional String[] reason) {
         CommandSender commandSender = context.getSender();
 
         Punishment punishment = Punishment.builder()
+            .id(RandomStringUtils.randomNumeric(5).toUpperCase())
             .active(true)
             .author(commandSender.getName())
+            .punishmentDuration(-1)
+            .timeLeft(-1)
+            .time(System.currentTimeMillis())
             .reason(reason == null ? "Não especificado" : String.join(" ", reason))
             .type(PunishmentType.MUTE)
             .build();
@@ -33,7 +38,7 @@ public class MuteCommand {
             PunishedUser newUser = PunishedUser.builder()
                 .uuid(target.getUniqueId())
                 .name(target.getName())
-                .punishments(Sets.newHashSet(punishment))
+                .punishments(Lists.newArrayList(punishment))
                 .build();
 
             punishedUserCache.put(target.getUniqueId(), newUser);

@@ -1,5 +1,6 @@
 package net.bozoinc.punishments.listener;
 
+import com.mongodb.client.model.Filters;
 import net.bozoinc.punishments.cache.impl.PunishedUserCache;
 import net.bozoinc.punishments.entity.PunishedUser;
 import net.bozoinc.punishments.entity.Punishment;
@@ -22,16 +23,13 @@ public class AsyncPlayerChatListener implements Listener {
         if (punishedUser == null) return;
 
         Punishment punishment = punishedUser.findActivePunishment(PunishmentType.TEMPORARY_MUTE, PunishmentType.MUTE);
-        if (punishment.getTime() <= System.currentTimeMillis()) {
-            punishment.setActive(false);
-            return;
-        }
+        if (punishment == null) return;
 
         String[] message;
-
         switch (punishment.getType()) {
             case TEMPORARY_MUTE: {
-                if (punishment.getTime() <= System.currentTimeMillis()) {
+                if (punishment.getTimeLeft() <= System.currentTimeMillis()) {
+                    punishment.setTimeLeft(-1);
                     punishment.setActive(false);
                     return;
                 }
@@ -42,7 +40,7 @@ public class AsyncPlayerChatListener implements Listener {
                     "",
                     "§cAutor: §f" + punishment.getAuthor(),
                     "§cMotivo: §f" + punishment.getReason(),
-                    "§cTempo restante: §f" + TimeHelper.formatDifference(punishment.getTime(), true),
+                    "§cTempo restante: §f" + TimeHelper.formatDifference(punishment.getTimeLeft(), true),
                     ""
                 };
                 break;

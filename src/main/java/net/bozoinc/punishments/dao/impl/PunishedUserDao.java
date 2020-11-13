@@ -40,7 +40,12 @@ public class PunishedUserDao implements Dao<UUID, PunishedUser> {
 
     @Override
     public FindIterable<PunishedUser> find() {
-        return mongoCollection.find();
+        try {
+            return mongoCollection.find();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
 }

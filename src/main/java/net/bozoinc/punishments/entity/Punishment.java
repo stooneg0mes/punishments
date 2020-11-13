@@ -1,20 +1,21 @@
 package net.bozoinc.punishments.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import net.bozoinc.punishments.entity.type.PunishmentType;
 import org.apache.commons.lang.RandomStringUtils;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 public class Punishment {
 
-    private final PunishmentType type;
-    private final String reason, author;
-    private final long time, timeLeft, punishmentDuration;
+    private PunishmentType type;
+    private String reason, author;
+    private String id;
 
-    private final String id = RandomStringUtils.random(7, true, true).toUpperCase();
+    @Setter
+    private long time, timeLeft, punishmentDuration;
 
     @Setter
     private boolean active;

@@ -32,10 +32,12 @@ public class TimeHelper {
     }
 
     public static String formatDifference(long time, boolean compare) {
+        if (time == -1) return "n/a";
+
         long realTime = (compare ? time - System.currentTimeMillis() : time);
 
         if (realTime == 0L) {
-            return "never";
+            return "nunca";
         }
 
         long day = TimeUnit.MILLISECONDS.toDays(realTime);
@@ -59,7 +61,7 @@ public class TimeHelper {
         }
 
         String build = stringBuilder.toString();
-        return (build.isEmpty() ? "now" : build);
+        return (build.isEmpty() ? "agora" : build);
     }
 
     @Getter
