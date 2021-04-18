@@ -10,19 +10,19 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 
-    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'http://maven.elmakers.com/repository/' }
     maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.16'
-    compile 'org.mongodb:mongodb-driver-sync:4.1.1'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    implementation 'com.github.SaiintBrisson.command-framework:bukkit:1.0.0'
+    implementation 'com.github.stooneg0mes:commons:a4551999ac'
+    implementation 'com.github.SaiintBrisson.command-framework:bukkit:1.2.0'
+    implementation 'com.github.SaiintBrisson:inventory-framework:5b3143684f'
 }
 
 compileJava.options.encoding = 'UTF-8'

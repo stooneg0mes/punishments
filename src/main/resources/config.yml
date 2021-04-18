@@ -1,6 +1,7 @@
-storage: # mongodb credentials
-  srv: true
-  host: "localhost"
-  user: ""
-  password: ""
-  database: "admin"
+storage:
+  type: "SQLite" # MySQL | SQLite
+  credentials:
+    user: "root"
+    password: ""
+    host: "localhost"
+    database: "test"
