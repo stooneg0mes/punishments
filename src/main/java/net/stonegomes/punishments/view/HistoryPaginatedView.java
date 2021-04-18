@@ -1,8 +1,8 @@
 package net.stonegomes.punishments.view;
 
 import me.saiintbrisson.minecraft.*;
-import me.saiintbrisson.minecraft.utils.ItemBuilder;
-import net.stonegomes.punishments.helper.TimeHelper;
+import net.stonegomes.commons.builder.ItemStackBuilder;
+import net.stonegomes.commons.helper.TimeHelper;
 import net.stonegomes.punishments.punishment.Punishment;
 import org.bukkit.Material;
 
@@ -43,7 +43,7 @@ public class HistoryPaginatedView extends PaginatedView<Punishment> {
 
     @Override
     protected void onPaginationItemRender(PaginatedViewContext<Punishment> context, ViewItem item, Punishment value) {
-        item.withItem(new ItemBuilder(Material.PAPER)
+        item.withItem(new ItemStackBuilder(Material.PAPER)
             .name("§c#" + value.getId())
             .lore(
                 "§8* §7Status: §f" + (value.isActive() ? "active" : "inactive"),
@@ -66,7 +66,7 @@ public class HistoryPaginatedView extends PaginatedView<Punishment> {
     @Override
     public ViewItem getNextPageItem(PaginatedViewContext<Punishment> context) {
         if ((context.getPage() + 1) < context.getPagesCount()) {
-            return context.slot(26).withItem(new ItemBuilder(Material.ARROW)
+            return context.slot(26).withItem(new ItemStackBuilder(Material.ARROW)
                 .name("§aNext page")
                 .build()
             ).onClick(handler -> context.switchToNextPage());
@@ -76,7 +76,7 @@ public class HistoryPaginatedView extends PaginatedView<Punishment> {
     @Override
     public ViewItem getPreviousPageItem(PaginatedViewContext<Punishment> context) {
         if (context.getPage() != 0) {
-            return context.slot(18).withItem(new ItemBuilder(Material.ARROW)
+            return context.slot(18).withItem(new ItemStackBuilder(Material.ARROW)
                 .name("§aPrevious page")
                 .build()
             ).onClick(handler -> context.switchToPreviousPage());

@@ -3,7 +3,9 @@ package net.stonegomes.punishments.punishment;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Builder
@@ -27,9 +29,9 @@ public class PunishmentUser {
 
     public Punishment findActivePunishment(PunishmentType... punishmentTypes) {
         return findActivePunishments().stream()
-                .filter(punishment -> Arrays.asList(punishmentTypes).contains(punishment.getType()))
-                .findFirst()
-                .orElse(null);
+            .filter(punishment -> Arrays.asList(punishmentTypes).contains(punishment.getType()))
+            .findFirst()
+            .orElse(null);
     }
 
     public void addPunishment(Punishment punishment) {

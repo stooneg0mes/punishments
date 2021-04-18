@@ -2,7 +2,6 @@ package net.stonegomes.punishments.punishment.cache;
 
 import lombok.Getter;
 import net.stonegomes.commons.cache.DoubleCache;
-import net.stonegomes.punishments.punishment.dao.PunishmentUserDao;
 import net.stonegomes.punishments.punishment.PunishmentUser;
 
 import java.util.UUID;

@@ -1,6 +1,8 @@
 package net.stonegomes.punishments.punishment;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
 @Getter

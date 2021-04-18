@@ -22,10 +22,10 @@ public class PunishmentsPlugin extends CommonsPlugin {
 
     @Override
     public Module[] getModules() {
-        return new Module[] {
+        return new Module[]{
+            new StorageModule(),
             new CommandModule(),
             new ListenerModule(),
-            new StorageModule(),
             new ViewModule()
         };
     }
