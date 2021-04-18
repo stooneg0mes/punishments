@@ -8,16 +8,14 @@ import net.stonegomes.punishments.module.ListenerModule;
 import net.stonegomes.punishments.module.StorageModule;
 import net.stonegomes.punishments.module.ViewModule;
 
-@Getter
 public class PunishmentsPlugin extends CommonsPlugin {
 
     @Getter
-    private static PunishmentsPlugin instance;
+    private static final PunishmentsPlugin instance = getPlugin(PunishmentsPlugin.class);
 
     @Override
     public void handleEnable() {
         saveDefaultConfig();
-        instance = this;
     }
 
     @Override
