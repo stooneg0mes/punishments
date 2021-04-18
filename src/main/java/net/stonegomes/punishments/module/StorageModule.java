@@ -1,6 +1,8 @@
 package net.stonegomes.punishments.module;
 
-public class StorageModule {
+import net.stonegomes.commons.module.Module;
+
+public class StorageModule extends Module {
 
     /*
     TODO
