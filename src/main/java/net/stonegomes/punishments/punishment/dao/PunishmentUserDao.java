@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PunishmentUserDao implements Dao<UUID, PunishmentUser> {
 
     @Getter
-    private final PunishmentUserDao instance = new PunishmentUserDao();
+    private static final PunishmentUserDao instance = new PunishmentUserDao();
 
     private final SqlStorage sqlStorage = StorageModule.getSqlStorage();
     private final PunishmentUserAdapter punishmentUserAdapter = PunishmentUserAdapter.getInstance();

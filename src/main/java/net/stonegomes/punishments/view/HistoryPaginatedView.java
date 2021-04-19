@@ -56,11 +56,7 @@ public class HistoryPaginatedView extends PaginatedView<Punishment> {
                 ""
             )
             .build()
-        ).onClick(handler -> {
-            /*
-            TODO
-             */
-        });
+        );
     }
 
     @Override

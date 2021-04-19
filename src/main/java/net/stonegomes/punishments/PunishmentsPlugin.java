@@ -7,6 +7,7 @@ import net.stonegomes.punishments.module.CommandModule;
 import net.stonegomes.punishments.module.ListenerModule;
 import net.stonegomes.punishments.module.StorageModule;
 import net.stonegomes.punishments.module.ViewModule;
+import net.stonegomes.punishments.punishment.module.PunishmentUserModule;
 
 public class PunishmentsPlugin extends CommonsPlugin {
 
@@ -24,7 +25,8 @@ public class PunishmentsPlugin extends CommonsPlugin {
             new StorageModule(),
             new CommandModule(),
             new ListenerModule(),
-            new ViewModule()
+            new ViewModule(),
+            new PunishmentUserModule()
         };
     }
 

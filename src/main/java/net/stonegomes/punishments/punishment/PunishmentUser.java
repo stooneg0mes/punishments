@@ -46,10 +46,6 @@ public class PunishmentUser {
     Bypass
      */
 
-    public boolean hasBypass() {
-        return bypass;
-    }
-
     public void setBypass(boolean bypass) {
         this.bypass = bypass;
     }
